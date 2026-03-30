@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Node.js Development</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Custom List Styling */
+        .tech-list-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 20px; /* Slightly reduced for 4 items */
+            border-left: 2px solid rgba(77, 163, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .tech-list-item:hover {
+            border-left-color: #4da3ff;
+            background-color: rgba(77, 163, 255, 0.05); /* No gradient */
+        }
+        .tech-icon-bullet {
+            position: absolute;
+            left: -12px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #1a1a2e;
+            border: 2px solid #4da3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #4da3ff;
+        }
+        
+        /* Right Side Diagram - Stack Layers */
+        .stack-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            perspective: 1000px;
+        }
+        
+        .stack-layer {
+            position: absolute;
+            width: 320px;
+            height: 160px; /* Slightly shorter */
+            left: 40px;
+            background-color: rgba(35, 35, 58, 0.95);
+            border: 1px solid rgba(77, 163, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Layer Positions */
+        .layer-server {
+            top: 20px;
+            z-index: 3;
+            transform: translateY(0) scale(1);
+            border-top: 4px solid #68a063; /* Node Green */
+        }
+        .layer-async {
+            top: 100px;
+            z-index: 2;
+            transform: translateY(0) scale(0.95);
+            opacity: 0.9;
+            border-top: 4px solid #4da3ff; /* Blue */
+        }
+        .layer-core {
+            top: 180px;
+            z-index: 1;
+            transform: translateY(0) scale(0.9);
+            opacity: 0.7;
+            border-top: 4px solid #8e44ad; /* Purple/System */
+        }
+        
+        .stack-container:hover .layer-server {
+            transform: translateY(-50px) scale(1);
+        }
+        .stack-container:hover .layer-async {
+            transform: translateY(0) scale(0.95);
+        }
+        .stack-container:hover .layer-core {
+            transform: translateY(50px) scale(0.9);
+            opacity: 1;
+        }
+
+        .code-snippet {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            color: #a0aec0;
+            background-color: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border border-gray-800 opacity-20 pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-1/2 h-full bg-[#0f4c81] opacity-5 transform skew-x-12 pointer-events-none"></div>
+<!-- Header Section -->
+<div class="w-full mb-6 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#68a063]"></div> <!-- Node Green Accent -->
+<p class="text-[#68a063] font-bold tracking-widest uppercase text-xs font-['Poppins']">Backend Engineering</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Node.js Development</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">06 / 18</div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex-1 grid grid-cols-2 gap-12 items-center">
+<!-- Left Column: Content -->
+<div class="pl-4">
+<h2 class="text-2xl font-bold font-['Poppins'] text-white mb-6">Runtime Architecture</h2>
+<div class="space-y-1">
+<!-- Server Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-server"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Server Creation</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Bootstrapped web servers using the native <strong>http</strong> module and configured <strong>Express</strong> apps to handle incoming network requests efficiently.
+                    </p>
+</div>
+<!-- Req/Res Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-exchange-alt"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Request-Response Cycle</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Implemented logic to parse JSON bodies, route traffic to specific handlers, and return standardized <strong>HTTP status codes</strong> (200, 404, 500).
+                    </p>
+</div>
+<!-- Async Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-bolt"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Asynchronous Programming</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Mastered non-blocking I/O using <strong>Promises</strong> and modern <strong>async/await</strong> syntax to prevent "Callback Hell" and ensure performance.
+                    </p>
+</div>
+<!-- Tools Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-search"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Modules &amp; Observability</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Organized code via CommonJS modules and utilized <strong>Node --inspect</strong>, console logs, and npm scripts for debugging and process management.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual Diagram -->
+<div class="flex justify-center items-center relative h-full">
+<!-- Diagram Background Glow -->
+<div class="absolute w-64 h-64 bg-[#68a063] rounded-full filter blur-[80px] opacity-10"></div>
+<div class="stack-container">
+<!-- Server Layer -->
+<div class="stack-layer layer-server">
+<div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 text-[#68a063]">
+<i class="fab fa-node-js text-2xl"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-bold text-white text-sm">Server Instance</h4>
+<span class="text-xs text-gray-500">app.js</span>
+</div>
+<div class="code-snippet">
+                            const server = http.createServer(app);
+                        </div>
+</div>
+</div>
+<!-- Async Logic Layer -->
+<div class="stack-layer layer-async">
+<div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 text-[#4da3ff]">
+<i class="fas fa-random text-xl"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-bold text-white text-sm">Event Loop &amp; Async</h4>
+<span class="text-xs text-gray-500">Non-blocking</span>
+</div>
+<div class="code-snippet">
+                            await Database.connect();
+                        </div>
+</div>
+</div>
+<!-- Core Layer -->
+<div class="stack-layer layer-core">
+<div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 text-[#8e44ad]">
+<i class="fas fa-microchip text-xl"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-bold text-white text-sm">V8 &amp; Libuv</h4>
+<span class="text-xs text-gray-500">Engine</span>
+</div>
+<div class="code-snippet">
+                            Thread Pool / System IO
+                        </div>
+</div>
+</div>
+<!-- Connection Line (Visual Decor) -->
+<div class="absolute right-[-40px] top-[40px] h-[160px] w-[2px] bg-[#68a063] opacity-30"></div>
+<div class="absolute right-[-40px] top-[120px] text-[#68a063] text-xs font-['Fira_Code'] transform rotate-90 origin-left" style="white-space: nowrap;">
+                    RUNTIME ENV
+                </div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

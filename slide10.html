@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Authentication &amp; Authorization (JWT)</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@300;400;500&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Process Step Card */
+        .step-card {
+            background: rgba(35, 35, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(77, 163, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            width: 260px;
+            height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            border-color: #4da3ff;
+            background: rgba(35, 35, 58, 0.95);
+            box-shadow: 0 10px 30px -10px rgba(77, 163, 255, 0.3);
+        }
+
+        /* Number Badge */
+        .step-number {
+            position: absolute;
+            top: -15px;
+            background-color: #1a1a2e;
+            border: 2px solid #4da3ff;
+            color: #4da3ff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            background: rgba(77, 163, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: #4da3ff;
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .icon-wrapper {
+            background: #4da3ff;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        /* Connecting Line */
+        .connector-line {
+            position: absolute;
+            top: 48%;
+            left: 100px;
+            right: 100px;
+            height: 2px;
+            background-color: #2d3748;
+            z-index: 0;
+            transform: translateY(20px);
+        }
+
+        .code-pill {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #a0aec0;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .tech-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+        .tag-blue { background: rgba(77, 163, 255, 0.2); color: #4da3ff; }
+        .tag-green { background: rgba(72, 187, 120, 0.2); color: #48bb78; }
+        .tag-red { background: rgba(245, 101, 101, 0.2); color: #f56565; }
+        .tag-purple { background: rgba(159, 122, 234, 0.2); color: #9f7aea; }
+
+        /* Bottom Status Bar */
+        .status-bar {
+            background: rgba(15, 76, 129, 0.2);
+            border-top: 1px solid rgba(77, 163, 255, 0.2);
+            margin-top: auto;
+            padding: 16px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .flow-arrow {
+            color: #4a5568;
+            margin: 0 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="absolute top-0 left-0 w-full h-2 bg-[#4da3ff]"></div>
+<div class="absolute top-20 right-20 w-64 h-64 bg-[#0f4c81] rounded-full filter blur-[100px] opacity-20"></div>
+<div class="absolute bottom-20 left-20 w-48 h-48 bg-[#4da3ff] rounded-full filter blur-[80px] opacity-10"></div>
+<!-- Header -->
+<div class="px-12 pt-12 pb-6 border-b border-gray-800 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Security &amp; Access Control</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Authentication &amp; Authorization</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">10 / 18</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col justify-center relative px-12">
+<!-- Connecting Line Background -->
+<div class="connector-line"></div>
+<!-- Arrow Heads on Line -->
+<div class="absolute top-[48%] left-[380px] transform translate-y-[11px] text-gray-600 text-xl"><i class="fas fa-chevron-right"></i></div>
+<div class="absolute top-[48%] right-[380px] transform translate-y-[11px] text-gray-600 text-xl"><i class="fas fa-chevron-right"></i></div>
+<div class="absolute top-[48%] right-[100px] transform translate-y-[11px] text-gray-600 text-xl"><i class="fas fa-chevron-right"></i></div>
+<div class="flex justify-between items-center gap-6 relative z-10 px-4">
+<!-- Step 1: Signup -->
+<div class="step-card">
+<div class="step-number">1</div>
+<div class="icon-wrapper">
+<i class="fas fa-user-lock"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2 font-['Poppins']">User Registration</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed px-2">
+                        Receiving user data, securely hashing the password, and storing the record in database.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="tech-tag tag-blue">bcryptjs</span>
+<span class="tech-tag tag-green">hash</span>
+</div>
+<div class="bg-gray-900 bg-opacity-60 p-2 rounded border border-gray-700 text-left">
+<div class="text-[10px] font-['Fira_Code'] text-gray-400">
+<span class="text-purple-400">bcrypt</span>.hash(pwd, <span class="text-orange-400">10</span>)
+                            </div>
+</div>
+</div>
+</div>
+<!-- Step 2: Login -->
+<div class="step-card">
+<div class="step-number">2</div>
+<div class="icon-wrapper">
+<i class="fas fa-file-signature"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2 font-['Poppins']">Token Issuance</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed px-2">
+                        Verifying credentials (password match) and generating a signed JWT with expiration.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="tech-tag tag-purple">jsonwebtoken</span>
+<span class="tech-tag tag-blue">sign</span>
+</div>
+<div class="bg-gray-900 bg-opacity-60 p-2 rounded border border-gray-700 text-left">
+<div class="text-[10px] font-['Fira_Code'] text-gray-400">
+<span class="text-purple-400">jwt</span>.sign(pl, secret, {<br/>
+                                Ã‚Â Ã‚Â expiresIn: <span class="text-green-400">'1h'</span><br/>
+                                })
+                            </div>
+</div>
+</div>
+</div>
+<!-- Step 3: Access -->
+<div class="step-card">
+<div class="step-number">3</div>
+<div class="icon-wrapper">
+<i class="fas fa-network-wired"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2 font-['Poppins']">Client Request</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed px-2">
+                        Client attaches the received token to the HTTP Authorization header for subsequent requests.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="tech-tag tag-red">HTTP</span>
+<span class="tech-tag tag-blue">Header</span>
+</div>
+<div class="bg-gray-900 bg-opacity-60 p-2 rounded border border-gray-700 text-left">
+<div class="text-[10px] font-['Fira_Code'] text-gray-400">
+<span class="text-blue-400">Authorization</span>: <br/>
+                                Bearer &lt;token&gt;
+                            </div>
+</div>
+</div>
+</div>
+<!-- Step 4: Protect -->
+<div class="step-card">
+<div class="step-number">4</div>
+<div class="icon-wrapper">
+<i class="fas fa-shield-alt"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-2 font-['Poppins']">Protection</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed px-2">
+                        Middleware intercepts request, verifies token signature, and grants access to protected route.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="flex flex-wrap gap-2 mb-3">
+<span class="tech-tag tag-green">Middleware</span>
+<span class="tech-tag tag-purple">Verify</span>
+</div>
+<div class="bg-gray-900 bg-opacity-60 p-2 rounded border border-gray-700 text-left">
+<div class="text-[10px] font-['Fira_Code'] text-gray-400">
+<span class="text-purple-400">jwt</span>.verify(token, key, <br/>
+                                (err, user) =&gt; <span class="text-blue-400">next</span>())
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Status Bar -->
+<div class="status-bar">
+<div class="flex items-center gap-2">
+<i class="fas fa-key text-[#4da3ff]"></i>
+<p class="text-sm font-semibold text-white font-['Poppins']">JWT Structure</p>
+</div>
+<div class="flex gap-4 text-xs font-['Fira_Code'] items-center">
+<div class="flex items-center bg-gray-900 px-3 py-1 rounded border border-red-900 text-red-400">
+<i class="fas fa-circle text-[8px] mr-2"></i>Header (Algo)
+                </div>
+<span class="text-gray-600">.</span>
+<div class="flex items-center bg-gray-900 px-3 py-1 rounded border border-purple-900 text-purple-400">
+<i class="fas fa-circle text-[8px] mr-2"></i>Payload (Data)
+                </div>
+<span class="text-gray-600">.</span>
+<div class="flex items-center bg-gray-900 px-3 py-1 rounded border border-blue-900 text-blue-400">
+<i class="fas fa-circle text-[8px] mr-2"></i>Signature
+                </div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

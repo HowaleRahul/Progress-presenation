@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Future Goals &amp; Roadmap</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Ambient Background */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .blob-1 { width: 500px; height: 500px; background-color: #0f4c81; top: -200px; left: -100px; }
+        .blob-2 { width: 400px; height: 400px; background-color: #4da3ff; bottom: -100px; right: -100px; }
+
+        /* Roadmap Grid */
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 40px;
+            padding: 20px 60px;
+            position: relative;
+            z-index: 10;
+            height: 100%;
+        }
+
+        /* SVG Path Layer */
+        .roadmap-path-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Milestone Card */
+        .milestone-card {
+            background: rgba(35, 35, 58, 0.7);
+            border: 1px solid rgba(77, 163, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            height: 220px;
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-8px);
+            border-color: #4da3ff;
+            background: rgba(35, 35, 58, 0.95);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.03);
+            line-height: 1;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .milestone-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Specific Card Themes */
+        .theme-mern .icon-box { background: rgba(97, 218, 251, 0.1); color: #61dbfb; }
+        .theme-cloud .icon-box { background: rgba(255, 153, 0, 0.1); color: #ff9900; }
+        .theme-docker .icon-box { background: rgba(13, 166, 233, 0.1); color: #0db7ed; }
+        .theme-cicd .icon-box { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+        .theme-sec .icon-box { background: rgba(72, 187, 120, 0.1); color: #48bb78; }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #a0aec0;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #cbd5e0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Status Indicator */
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: rgba(77, 163, 255, 0.1);
+            color: #4da3ff;
+            border: 1px solid rgba(77, 163, 255, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        /* Grid Positioning */
+        .pos-1 { grid-column: 1; grid-row: 1; }
+        .pos-2 { grid-column: 2; grid-row: 1; }
+        .pos-3 { grid-column: 3; grid-row: 1; }
+        .pos-4 { grid-column: 3; grid-row: 2; margin-top: 20px; }
+        .pos-5 { grid-column: 2; grid-row: 2; margin-top: 20px; }
+
+        /* Path Animation */
+        .path-line {
+            stroke-dasharray: 10;
+            animation: dash 30s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<!-- Header -->
+<div class="w-full px-12 pt-10 mb-2 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Professional Growth</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Future Goals Roadmap</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">16 / 18</div>
+</div>
+<!-- Roadmap Content -->
+<div class="flex-1 relative w-full h-full">
+<!-- Connecting Lines SVG -->
+<svg class="roadmap-path-svg" viewbox="0 0 1280 580">
+<defs>
+<marker id="arrow" markerheight="10" markerunits="strokeWidth" markerwidth="10" orient="auto" refx="9" refy="3">
+<path d="M0,0 L0,6 L9,3 z" fill="#4da3ff"></path>
+</marker>
+</defs>
+<!-- Path logic: Center of cards approx. 
+                 Row 1 Y: 150
+                 Row 2 Y: 430
+                 Col 1 X: 250, Col 2 X: 640, Col 3 X: 1030
+            -->
+<path class="path-line" d="M 400 130 L 500 130" fill="none" stroke="#2d3748" stroke-width="2"></path>
+<path class="path-line" d="M 780 130 L 880 130" fill="none" stroke="#2d3748" stroke-width="2"></path>
+<!-- Curve down from 3 to 4 -->
+<path class="path-line" d="M 1150 240 C 1150 320, 1150 320, 1150 350" fill="none" marker-end="url(#arrow)" stroke="#2d3748" stroke-width="2"></path>
+<!-- Back from 4 to 5 -->
+<path class="path-line" d="M 880 430 L 780 430" fill="none" marker-end="url(#arrow)" stroke="#2d3748" stroke-width="2"></path>
+</svg>
+<div class="roadmap-grid">
+<!-- Milestone 1: MERN Capstone -->
+<div class="milestone-card theme-mern pos-1">
+<div class="card-number">01</div>
+<div class="status-badge">Next Step</div>
+<div class="icon-box">
+<i class="fas fa-layer-group"></i>
+</div>
+<h3 class="card-title">MERN Capstone</h3>
+<p class="card-desc">
+                    Develop a full-scale application integrating advanced React patterns, Redux state management, and optimized backend logic.
+                </p>
+<div class="tech-pills">
+<span class="pill">Redux</span>
+<span class="pill">Socket.io</span>
+<span class="pill">MongoDB</span>
+</div>
+</div>
+<!-- Milestone 2: Cloud Deployment -->
+<div class="milestone-card theme-cloud pos-2">
+<div class="card-number">02</div>
+<div class="icon-box">
+<i class="fas fa-cloud-upload-alt"></i>
+</div>
+<h3 class="card-title">Cloud Deployment</h3>
+<p class="card-desc">
+                    Deploy applications to production environments using AWS EC2 or Render, configured with Nginx as a reverse proxy.
+                </p>
+<div class="tech-pills">
+<span class="pill">AWS</span>
+<span class="pill">Nginx</span>
+<span class="pill">SSL/TLS</span>
+</div>
+</div>
+<!-- Milestone 3: Containerization -->
+<div class="milestone-card theme-docker pos-3">
+<div class="card-number">03</div>
+<div class="icon-box">
+<i class="fab fa-docker"></i>
+</div>
+<h3 class="card-title">Containerization</h3>
+<p class="card-desc">
+                    Implement Docker to containerize services for consistent environments and orchestrate multi-container apps.
+                </p>
+<div class="tech-pills">
+<span class="pill">Docker</span>
+<span class="pill">Compose</span>
+<span class="pill">Microservices</span>
+</div>
+</div>
+<!-- Milestone 4: CI/CD -->
+<div class="milestone-card theme-cicd pos-4">
+<div class="card-number">04</div>
+<div class="icon-box">
+<i class="fas fa-sync-alt"></i>
+</div>
+<h3 class="card-title">CI/CD Pipelines</h3>
+<p class="card-desc">
+                    Automate testing and deployment workflows using GitHub Actions to ensure code quality and rapid delivery.
+                </p>
+<div class="tech-pills">
+<span class="pill">GitHub Actions</span>
+<span class="pill">Jest</span>
+<span class="pill">Auto-Deploy</span>
+</div>
+</div>
+<!-- Milestone 5: Security -->
+<div class="milestone-card theme-sec pos-5">
+<div class="card-number">05</div>
+<div class="icon-box">
+<i class="fas fa-shield-alt"></i>
+</div>
+<h3 class="card-title">Security Hardening</h3>
+<p class="card-desc">
+                    Implement industry standards for application security including rate limiting, header security, and monitoring.
+                </p>
+<div class="tech-pills">
+<span class="pill">OWASP</span>
+<span class="pill">Helmet</span>
+<span class="pill">Rate Limit</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

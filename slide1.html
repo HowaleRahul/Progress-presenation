@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Internship Progress Report</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&amp;family=Inter:wght@300;400;500&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a2e; /* Dark theme base */
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            position: relative;
+            background-color: #1a1a2e;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .accent-blue {
+            color: #4da3ff;
+        }
+        .bg-accent-blue {
+            background-color: #0f4c81;
+        }
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(15, 76, 129, 0.3);
+        }
+        .code-bg {
+            font-family: 'Fira Code', monospace;
+            position: absolute;
+            opacity: 0.05;
+            color: #4da3ff;
+            font-size: 14px;
+            line-height: 1.5;
+            right: 50px;
+            top: 50px;
+            text-align: right;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body style="">
+<div class="slide-container">
+<!-- Background Decoration -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-[#0f4c81] opacity-10 transform skew-x-[-15deg] translate-x-32"></div>
+<div class="decorative-circle w-[600px] h-[600px] -bottom-32 -left-32 opacity-20"></div>
+<div class="decorative-circle w-[400px] h-[400px] bottom-10 left-10 opacity-10 border-dashed"></div>
+<!-- Abstract Code Background -->
+<div class="code-bg">
+<p>const intern = {</p>
+<p>&nbsp;&nbsp;role: "Full Stack Developer",</p>
+<p>&nbsp;&nbsp;org: "Aquil Tech Labs",</p>
+<p>&nbsp;&nbsp;stack: ["MERN", "MySQL"],</p>
+<p>&nbsp;&nbsp;status: "In Progress"</p>
+<p>};</p>
+<p></p>
+<p>function initReport() {</p>
+<p>&nbsp;&nbsp;return "Loading...";</p>
+<p>}</p>
+</div>
+<!-- Main Content Wrapper -->
+<div class="z-10 flex flex-col justify-center h-full px-24 w-full">
+<!-- Title Section -->
+<div class="mb-0">
+<h1 class="text-7xl font-extrabold font-['Poppins'] leading-tight mb-4 text-white">
+                    Internship <br>
+<span class="text-[#4da3ff]">Progress Report</span>
+</h1>
+<!-- Track and Year -->
+<div class="text-3xl text-gray-300 font-light font-['Inter'] flex items-center gap-4 mb-12">
+<span class="bg-[#0f4c81] px-3 py-1 rounded text-lg font-bold">2026</span>
+<p>MERN Stack Development&nbsp;</p>
+</div>
+<!-- Organization and Timeline Details -->
+<div class="flex items-center gap-10 border-t border-gray-700 pt-8 w-max">
+<!-- Organization -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-[#0f4c81] bg-opacity-30 flex items-center justify-center border border-[#0f4c81] text-[#4da3ff]">
+<i class="fas fa-building text-xl"></i>
+</div>
+<div>
+<p class="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-1">Organization</p>
+<p class="text-xl font-bold text-white font-['Poppins']">Aquil Tech Labs</p>
+</div>
+</div>
+<!-- Divider -->
+<div class="w-px h-12 bg-gray-700"></div>
+<!-- Timeline -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-[#0f4c81] bg-opacity-30 flex items-center justify-center border border-[#0f4c81] text-[#4da3ff]">
+<i class="fas fa-calendar-alt text-xl"></i>
+</div>
+<div>
+<p class="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-1">Timeline</p>
+<p class="text-xl font-bold text-white font-['Poppins']">1 Jan 2026 - Present</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script src="slide-navigation.js"></script>
+</body></html>

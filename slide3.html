@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Timeline Overview</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        /* Design Elements */
+        .timeline-track {
+            position: absolute;
+            top: 50%;
+            left: 6rem;
+            right: 4rem;
+            height: 4px;
+            background-color: #2d3748;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Full width to show progress */
+            height: 100%;
+            background-color: #0f4c81;
+        }
+        .timeline-arrow {
+            position: absolute;
+            right: -10px;
+            top: -6px;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        
+        /* Timeline Node */
+        .node-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 260px;
+        }
+        
+        .node-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #1a1a2e;
+            border: 4px solid #4da3ff;
+            box-shadow: 0 0 0 6px rgba(77, 163, 255, 0.2);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        /* Cards */
+        .phase-card {
+            background-color: #23233a;
+            border-top: 4px solid #4da3ff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            width: 100%;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-5px);
+            background-color: #2a2a45;
+        }
+
+        .date-pill {
+            background-color: #0f4c81;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #4da3ff;
+        }
+
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(77, 163, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: #4da3ff;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-[#0f4c81] opacity-5 rounded-bl-full pointer-events-none"></div>
+<div class="absolute bottom-0 left-0 w-96 h-32 bg-[#0f4c81] opacity-5 transform skew-y-6 pointer-events-none"></div>
+<!-- Header Section -->
+<div class="w-full mb-8 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Training Roadmap</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Timeline Overview</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">03 / 18</div>
+</div>
+<!-- Main Timeline Content -->
+<div class="flex-1 relative flex flex-col justify-center">
+<!-- Horizontal Track -->
+<div class="timeline-track">
+<!-- Change width style to simulate completion percentage if needed, currently showing full path -->
+<div class="timeline-progress" style="width: 100%; background: linear-gradient(90deg, #0f4c81 0%, #4da3ff 100%); opacity: 0.3;"></div>
+<i class="fas fa-chevron-right timeline-arrow"></i>
+</div>
+<!-- Nodes Container -->
+<div class="flex justify-between items-start w-full px-8 h-[400px]">
+<!-- Phase 1: Frontend -->
+<div class="node-container">
+<!-- Date (Top) -->
+<div class="date-pill shadow-lg">1 Jan Ã¢â‚¬â€œ 24 Jan</div>
+<!-- Marker (Middle) -->
+<div class="node-dot"></div>
+<!-- Content (Bottom) -->
+<div class="phase-card group">
+<div class="flex items-center gap-4 mb-3">
+<div class="icon-circle group-hover:bg-[#4da3ff] group-hover:text-white transition-colors">
+<i class="fas fa-code"></i>
+</div>
+<h3 class="text-xl font-bold font-['Poppins'] text-white">Frontend</h3>
+</div>
+<ul class="text-gray-300 text-sm space-y-2 list-disc list-inside marker:text-[#4da3ff]">
+<li>HTML5 Structure</li>
+<li>CSS Flex/Grid</li>
+<li>JavaScript Logic</li>
+</ul>
+</div>
+</div>
+<!-- Phase 2: Node.js -->
+<div class="node-container">
+<div class="date-pill shadow-lg">25 Jan Ã¢â‚¬â€œ 14 Feb</div>
+<div class="node-dot"></div>
+<div class="phase-card group">
+<div class="flex items-center gap-4 mb-3">
+<div class="icon-circle group-hover:bg-[#4da3ff] group-hover:text-white transition-colors">
+<i class="fab fa-node-js"></i>
+</div>
+<h3 class="text-xl font-bold font-['Poppins'] text-white">Node.js</h3>
+</div>
+<ul class="text-gray-300 text-sm space-y-2 list-disc list-inside marker:text-[#4da3ff]">
+<li>Server Creation</li>
+<li>Async Programming</li>
+<li>API Testing (Postman)</li>
+</ul>
+</div>
+</div>
+<!-- Phase 3: Express -->
+<div class="node-container">
+<div class="date-pill shadow-lg">15 Feb Ã¢â‚¬â€œ 13 Mar</div>
+<div class="node-dot"></div>
+<div class="phase-card group">
+<div class="flex items-center gap-4 mb-3">
+<div class="icon-circle group-hover:bg-[#4da3ff] group-hover:text-white transition-colors">
+<i class="fas fa-server"></i>
+</div>
+<h3 class="text-xl font-bold font-['Poppins'] text-white">Express.js</h3>
+</div>
+<ul class="text-gray-300 text-sm space-y-2 list-disc list-inside marker:text-[#4da3ff]">
+<li>REST API Routes</li>
+<li>Middleware Logic</li>
+<li>Project Integration</li>
+</ul>
+</div>
+</div>
+<!-- Phase 4: MySQL -->
+<div class="node-container">
+<div class="date-pill shadow-lg bg-[#4da3ff] border-white text-white font-bold">14 Mar Ã¢â‚¬â€œ Present</div>
+<div class="node-dot border-white bg-[#4da3ff]"></div>
+<div class="phase-card group border-t-white">
+<div class="flex items-center gap-4 mb-3">
+<div class="icon-circle bg-[#4da3ff] text-white">
+<i class="fas fa-database"></i>
+</div>
+<h3 class="text-xl font-bold font-['Poppins'] text-white">MySQL</h3>
+</div>
+<ul class="text-gray-300 text-sm space-y-2 list-disc list-inside marker:text-white">
+<li>Schema Design</li>
+<li>CRUD Operations</li>
+<li>Joins &amp; Normalization</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

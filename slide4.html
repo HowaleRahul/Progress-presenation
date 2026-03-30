@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Frontend Development</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Custom List Styling */
+        .tech-list-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 24px;
+            border-left: 2px solid rgba(77, 163, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .tech-list-item:hover {
+            border-left-color: #4da3ff;
+            background: linear-gradient(90deg, rgba(77, 163, 255, 0.05) 0%, transparent 100%);
+        }
+        .tech-icon-bullet {
+            position: absolute;
+            left: -12px; /* Center on border */
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #1a1a2e;
+            border: 2px solid #4da3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #4da3ff;
+        }
+        
+        /* Right Side Diagram - Tech Stack Layers */
+        .stack-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            perspective: 1000px;
+        }
+        
+        .stack-layer {
+            position: absolute;
+            width: 320px;
+            height: 180px;
+            left: 40px;
+            background: rgba(35, 35, 58, 0.9);
+            border: 1px solid rgba(77, 163, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Layer Positions */
+        .layer-html {
+            top: 20px;
+            z-index: 1;
+            transform: translateY(0) scale(0.9);
+            opacity: 0.6;
+            border-top: 4px solid #e34c26; /* HTML Orange hint */
+        }
+        .layer-css {
+            top: 100px;
+            z-index: 2;
+            transform: translateY(0) scale(0.95);
+            opacity: 0.8;
+            border-top: 4px solid #264de4; /* CSS Blue hint */
+        }
+        .layer-js {
+            top: 180px;
+            z-index: 3;
+            transform: translateY(0) scale(1);
+            border-top: 4px solid #f0db4f; /* JS Yellow hint */
+        }
+        
+        .stack-container:hover .layer-html {
+            transform: translateY(-40px) scale(0.9);
+            opacity: 1;
+        }
+        .stack-container:hover .layer-css {
+            transform: translateY(0) scale(0.95);
+            opacity: 1;
+        }
+        .stack-container:hover .layer-js {
+            transform: translateY(40px) scale(1);
+        }
+
+        .code-snippet {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #a0aec0;
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .glow-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #4da3ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #4da3ff;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border border-gray-800 opacity-20 pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-1/2 h-full bg-[#0f4c81] opacity-5 transform skew-x-12 pointer-events-none"></div>
+<!-- Header Section -->
+<div class="w-full mb-8 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Building Blocks</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Frontend Development</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">04 / 18</div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex-1 grid grid-cols-2 gap-12 items-center">
+<!-- Left Column: Content -->
+<div class="pl-4">
+<h2 class="text-2xl font-bold font-['Poppins'] text-white mb-8">Core Technologies</h2>
+<div class="space-y-2">
+<!-- HTML Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fab fa-html5"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">HTML5 Structure</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Implemented <strong>semantic tags</strong> (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>) to ensure accessible, SEO-friendly document structure and organized content hierarchy.
+                    </p>
+</div>
+<!-- CSS Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fab fa-css3-alt"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">CSS3 &amp; Styling</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Utilized Modern layouts with <strong>Flexbox</strong> (alignment) and <strong>Grid</strong> (2D structure). Adopted Mobile-first approach using media queries for responsive design across devices.
+                    </p>
+</div>
+<!-- JS Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fab fa-js"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">JavaScript Logic</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Dynamic interactivity via <strong>DOM manipulation</strong> (selecting elements, modifying classes) and Event Handling (listeners for clicks, inputs, API calls).
+                    </p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual Diagram -->
+<div class="flex justify-center items-center relative h-full">
+<!-- Diagram Background Glow -->
+<div class="absolute w-64 h-64 bg-[#4da3ff] rounded-full filter blur-[80px] opacity-10"></div>
+<div class="stack-container">
+<!-- HTML Layer -->
+<div class="stack-layer layer-html">
+<div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 text-[#e34c26]">
+<i class="fab fa-html5 text-2xl"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-bold text-white text-sm">Structure</h4>
+<span class="text-xs text-gray-500">base</span>
+</div>
+<div class="code-snippet">
+                            &lt;div class="container"&gt;...&lt;/div&gt;
+                        </div>
+</div>
+</div>
+<!-- CSS Layer -->
+<div class="stack-layer layer-css">
+<div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 text-[#264de4]">
+<i class="fab fa-css3-alt text-2xl"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-bold text-white text-sm">Presentation</h4>
+<span class="text-xs text-gray-500">style</span>
+</div>
+<div class="code-snippet">
+                            display: flex; justify-content: center;
+                        </div>
+</div>
+</div>
+<!-- JS Layer -->
+<div class="stack-layer layer-js">
+<div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 text-[#f0db4f]">
+<i class="fab fa-js text-2xl"></i>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<h4 class="font-bold text-white text-sm">Behavior</h4>
+<span class="text-xs text-gray-500">logic</span>
+</div>
+<div class="code-snippet">
+                            document.querySelector('.btn').onclick = fn;
+                        </div>
+</div>
+</div>
+<!-- Connection Lines (Visual Decor) -->
+<div class="absolute right-[-40px] top-[40px] h-[160px] w-[2px] bg-gradient-to-b from-transparent via-[#4da3ff] to-transparent opacity-50"></div>
+<div class="absolute right-[-40px] top-[120px] text-[#4da3ff] text-xs font-['Fira_Code'] transform rotate-90 origin-left" style="white-space: nowrap;">
+                    THE WEB STACK
+                </div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

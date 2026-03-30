@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conclusion &amp; Summary</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Ambient Background - using blur instead of gradients */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .blob-blue { width: 600px; height: 600px; background-color: #0f4c81; top: -200px; left: 340px; }
+        .blob-teal { width: 400px; height: 400px; background-color: #4da3ff; bottom: -100px; right: -100px; }
+
+        /* Main Content Layout */
+        .main-content {
+            display: grid;
+            grid-template-rows: 1fr auto auto;
+            gap: 24px;
+            padding: 10px 80px 40px 80px;
+            height: 100%;
+            z-index: 10;
+        }
+
+        /* Achievement Cards Grid */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .summary-card {
+            background: rgba(35, 35, 58, 0.6);
+            border: 1px solid rgba(77, 163, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-8px);
+            border-color: #4da3ff;
+            background: rgba(35, 35, 58, 0.9);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Icon styling */
+        .card-icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover .card-icon-box {
+            transform: scale(1.1);
+        }
+
+        .icon-blue { color: #4da3ff; background: rgba(77, 163, 255, 0.1); border-color: rgba(77, 163, 255, 0.2); }
+        .icon-green { color: #48bb78; background: rgba(72, 187, 120, 0.1); border-color: rgba(72, 187, 120, 0.2); }
+        .icon-purple { color: #9f7aea; background: rgba(159, 122, 234, 0.1); border-color: rgba(159, 122, 234, 0.2); }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+
+        /* Highlight keywords in text */
+        .hl { color: #fff; font-weight: 500; }
+
+        /* Next Steps Bar */
+        .next-steps-container {
+            background: rgba(35, 35, 58, 0.4);
+            border-left: 4px solid #4da3ff;
+            border-radius: 8px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .steps-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .steps-tags {
+            display: flex;
+            gap: 12px;
+        }
+
+        .step-tag {
+            background: rgba(77, 163, 255, 0.1);
+            color: #90cdf4;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(77, 163, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Gratitude Section */
+        .gratitude-box {
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gratitude-text {
+            font-size: 14px;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .heart-icon {
+            color: #f56565;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="bg-blob blob-blue"></div>
+<div class="bg-blob blob-teal"></div>
+<!-- Header -->
+<div class="w-full px-12 pt-10 mb-2 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Summary &amp; Takeaways</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Conclusion</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">17 / 18</div>
+</div>
+<!-- Main Content -->
+<div class="main-content">
+<!-- Top Row: Key Achievements Cards -->
+<div class="achievements-grid">
+<!-- Card 1: Learning Outcomes -->
+<div class="summary-card">
+<div class="card-icon-box icon-blue">
+<i class="fas fa-graduation-cap"></i>
+</div>
+<h3 class="card-title">Learning Outcomes</h3>
+<p class="card-desc">
+                        Successfully bridged the gap between theory and practice. Achieved a solid grasp of <span class="hl">Full-Stack Fundamentals</span> including MERN stack architecture and RESTful services.
+                    </p>
+</div>
+<!-- Card 2: Practical Exposure -->
+<div class="summary-card">
+<div class="card-icon-box icon-green">
+<i class="fas fa-code-branch"></i>
+</div>
+<h3 class="card-title">Practical Exposure</h3>
+<p class="card-desc">
+                        Gained hands-on experience with production-level concepts: <span class="hl">JWT Authentication</span>, complex <span class="hl">MySQL Relationships</span>, and third-party API integration.
+                    </p>
+</div>
+<!-- Card 3: Professional Confidence -->
+<div class="summary-card">
+<div class="card-icon-box icon-purple">
+<i class="fas fa-lightbulb"></i>
+</div>
+<h3 class="card-title">Problem Solving</h3>
+<p class="card-desc">
+                        Developed a systematic approach to debugging. Significantly improved confidence in reading documentation and handling <span class="hl">Asynchronous Logic</span> errors.
+                    </p>
+</div>
+</div>
+<!-- Middle Row: Next Steps -->
+<div class="next-steps-container">
+<div class="steps-label">
+<i class="fas fa-route text-[#4da3ff]"></i>
+<span>Path Forward</span>
+</div>
+<div class="steps-tags">
+<div class="step-tag">
+<i class="fas fa-vial"></i> Advanced Testing
+                    </div>
+<div class="step-tag">
+<i class="fas fa-shield-alt"></i> Web Security
+                    </div>
+<div class="step-tag">
+<i class="fas fa-server"></i> DevOps &amp; CI/CD
+                    </div>
+<div class="step-tag">
+<i class="fab fa-aws"></i> Cloud Architecture
+                    </div>
+</div>
+</div>
+<!-- Bottom Row: Gratitude -->
+<div class="gratitude-box">
+<p class="gratitude-text">
+                    Special thanks to my 
+                    <span class="text-white font-medium">Mentor</span>, 
+                    <span class="text-white font-medium">Team Members</span>, and 
+                    <span class="text-white font-medium">Institution</span> 
+                    for their guidance and support throughout this journey.
+                    <i class="fas fa-heart heart-icon ml-2"></i>
+</p>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

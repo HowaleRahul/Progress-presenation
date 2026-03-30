@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project: Mini Task Manager</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@300;400;500&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Grid Layout System */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 40px;
+            height: 100%;
+            align-items: start;
+        }
+
+        /* Sidebar Panel (Technical Specs) */
+        .tech-panel {
+            background: rgba(35, 35, 58, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(77, 163, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .endpoint-item {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            border-left: 3px solid #555;
+            transition: transform 0.2s ease;
+        }
+        
+        .endpoint-item:hover {
+            transform: translateX(4px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .ep-get { border-color: #4da3ff; }
+        .ep-post { border-color: #48bb78; }
+        .ep-put { border-color: #ecc94b; }
+        .ep-del { border-color: #f56565; }
+
+        .method { font-weight: 600; width: 50px; }
+        .ep-get .method { color: #4da3ff; }
+        .ep-post .method { color: #48bb78; }
+        .ep-put .method { color: #ecc94b; }
+        .ep-del .method { color: #f56565; }
+        
+        .path { color: #a0aec0; letter-spacing: -0.5px; }
+
+        .tech-tag {
+            background: rgba(77, 163, 255, 0.1);
+            color: #4da3ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            border: 1px solid rgba(77, 163, 255, 0.2);
+        }
+
+        /* Feature Cards Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            height: 100%;
+        }
+
+        .feature-card {
+            background-color: #23233a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #4da3ff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            background-color: #2a2a45;
+        }
+
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(77, 163, 255, 0.1);
+            color: #4da3ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .card-icon {
+            background: #4da3ff;
+            color: white;
+            transform: rotate(-5deg);
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: white;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #a0aec0;
+            line-height: 1.4;
+        }
+        
+        .check-mark {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        .feature-card:hover .check-mark {
+            color: #48bb78;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-[#0f4c81] opacity-5 rounded-bl-full pointer-events-none"></div>
+<div class="absolute bottom-10 left-10 w-32 h-32 border-2 border-[#23233a] rounded-full opacity-40 pointer-events-none border-dashed"></div>
+<!-- Header Section -->
+<div class="w-full mb-8 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Application Development</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Project: Mini Task Manager</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">09 / 18</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 main-grid">
+<!-- Left Column: Technical Specs & Endpoints -->
+<div class="tech-panel">
+<h3 class="text-lg font-bold font-['Poppins'] text-white mb-4 border-b border-gray-700 pb-2">
+<i class="fas fa-server mr-2 text-[#4da3ff]"></i>Backend Architecture
+                </h3>
+<div class="mb-6">
+<p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-3">RESTful Endpoints</p>
+<div class="endpoint-item ep-get">
+<span class="method">GET</span>
+<span class="path">/api/tasks</span>
+</div>
+<div class="endpoint-item ep-post">
+<span class="method">POST</span>
+<span class="path">/api/tasks</span>
+</div>
+<div class="endpoint-item ep-put">
+<span class="method">PUT</span>
+<span class="path">/api/tasks/:id</span>
+</div>
+<div class="endpoint-item ep-del">
+<span class="method">DEL</span>
+<span class="path">/api/tasks/:id</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-3">Technical Highlights</p>
+<div class="flex flex-wrap">
+<div class="tech-tag"><i class="fas fa-sync-alt mr-1"></i> Optimistic UI</div>
+<div class="tech-tag"><i class="fas fa-shield-alt mr-1"></i> Input Validation</div>
+<div class="tech-tag"><i class="fas fa-code-branch mr-1"></i> MVC Pattern</div>
+<div class="tech-tag"><i class="fas fa-database mr-1"></i> JSON/MySQL</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Feature Cards Grid -->
+<div class="feature-grid">
+<!-- Card 1: Create -->
+<div class="feature-card">
+<div class="check-mark"><i class="fas fa-check-circle"></i></div>
+<div class="card-icon">
+<i class="fas fa-plus-circle"></i>
+</div>
+<h3 class="card-title">Create Tasks</h3>
+<p class="card-desc">Users can add new tasks with titles and descriptions. Implements input validation to prevent empty entries.</p>
+</div>
+<!-- Card 2: Read/Filter -->
+<div class="feature-card">
+<div class="check-mark"><i class="fas fa-check-circle"></i></div>
+<div class="card-icon">
+<i class="fas fa-filter"></i>
+</div>
+<h3 class="card-title">Filter Views</h3>
+<p class="card-desc">Dynamic filtering to view 'All', 'Active', or 'Completed' tasks instantly using client-side state filtering.</p>
+</div>
+<!-- Card 3: Update -->
+<div class="feature-card">
+<div class="check-mark"><i class="fas fa-check-circle"></i></div>
+<div class="card-icon">
+<i class="fas fa-edit"></i>
+</div>
+<h3 class="card-title">Edit Details</h3>
+<p class="card-desc">Update existing task information via PUT requests. Features modal-based editing for better UX.</p>
+</div>
+<!-- Card 4: Complete -->
+<div class="feature-card">
+<div class="check-mark"><i class="fas fa-check-circle"></i></div>
+<div class="card-icon">
+<i class="far fa-check-square"></i>
+</div>
+<h3 class="card-title">Task Completion</h3>
+<p class="card-desc">Toggle task status with visual feedback (strikethrough styling). Updates database status field.</p>
+</div>
+<!-- Card 5: Delete -->
+<div class="feature-card">
+<div class="check-mark"><i class="fas fa-check-circle"></i></div>
+<div class="card-icon">
+<i class="fas fa-trash-alt"></i>
+</div>
+<h3 class="card-title">Delete Tasks</h3>
+<p class="card-desc">Remove unwanted tasks securely. Includes a confirmation step before executing the DELETE request.</p>
+</div>
+<!-- Card 6: Outcome -->
+<div class="feature-card" style="background: linear-gradient(145deg, #23233a, #1e1e30); border: 1px solid rgba(77, 163, 255, 0.3);">
+<div class="check-mark text-[#4da3ff]"><i class="fas fa-star"></i></div>
+<div class="card-icon" style="background: #4da3ff; color: white;">
+<i class="fas fa-rocket"></i>
+</div>
+<h3 class="card-title">Project Outcome</h3>
+<p class="card-desc text-white">A fully functional MVP demonstrating CRUD mastery, deployed and ready for live demonstration.</p>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

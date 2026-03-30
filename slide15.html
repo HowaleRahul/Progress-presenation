@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Challenges Faced</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Background Decorations */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .orb-red {
+            width: 400px;
+            height: 400px;
+            background-color: #f56565;
+            top: -100px;
+            right: -50px;
+        }
+        .orb-blue {
+            width: 300px;
+            height: 300px;
+            background-color: #4da3ff;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        /* Challenge Row Styling */
+        .challenge-row {
+            background: rgba(35, 35, 58, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 0;
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-row:hover {
+            transform: translateX(5px);
+            background: rgba(35, 35, 58, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icon Section */
+        .row-icon-area {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .row-icon {
+            font-size: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Problem Section */
+        .problem-area {
+            flex: 1;
+            padding: 16px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px dashed rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        /* Solution Section */
+        .solution-area {
+            flex: 1;
+            padding: 16px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(77, 163, 255, 0.03);
+        }
+
+        /* Typography */
+        .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .label-problem { color: #f56565; }
+        .label-solution { color: #48bb78; }
+
+        .content-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .content-desc {
+            font-size: 13px;
+            color: #a0aec0;
+            line-height: 1.4;
+        }
+
+        /* Specific Theme Colors for Icons */
+        .theme-bug .row-icon { color: #f56565; background: rgba(245, 101, 101, 0.1); }
+        .theme-flow .row-icon { color: #ed8936; background: rgba(237, 137, 54, 0.1); }
+        .theme-api .row-icon { color: #ecc94b; background: rgba(236, 201, 75, 0.1); }
+        .theme-db .row-icon { color: #4da3ff; background: rgba(77, 163, 255, 0.1); }
+
+        /* Code Pills */
+        .code-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d1d5db;
+            display: inline-block;
+        }
+
+        /* Connector Arrow */
+        .connector-arrow {
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.2);
+            background: #2d3748;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Bottom Toolkit Bar */
+        .toolkit-bar {
+            margin-top: auto;
+            background: rgba(35, 35, 58, 0.8);
+            border-top: 1px solid rgba(77, 163, 255, 0.2);
+            padding: 20px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
+        }
+        .tool-item:hover {
+            border-color: #4da3ff;
+            background: rgba(77, 163, 255, 0.1);
+        }
+        .tool-icon { color: #4da3ff; }
+        .tool-text { font-size: 13px; font-weight: 500; }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="bg-orb orb-red"></div>
+<div class="bg-orb orb-blue"></div>
+<!-- Header -->
+<div class="w-full px-12 pt-10 mb-4 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#f56565]"></div> <!-- Red accent for Challenges -->
+<p class="text-[#f56565] font-bold tracking-widest uppercase text-xs font-['Poppins']">Obstacles &amp; Solutions</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Challenges Faced</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">15 / 18</div>
+</div>
+<!-- Main Content List -->
+<div class="flex-1 px-12 py-4 flex flex-col z-10 overflow-y-auto">
+<!-- Challenge 1: Debugging -->
+<div class="challenge-row theme-bug">
+<div class="row-icon-area">
+<div class="row-icon"><i class="fas fa-bug"></i></div>
+</div>
+<div class="problem-area">
+<div class="label label-problem"><i class="fas fa-exclamation-circle"></i> Issue</div>
+<h3 class="content-title">Asynchronous Bugs</h3>
+<p class="content-desc">Handling <span class="code-pill">async/await</span> logic led to unhandled promise rejections and silent failures without stack traces.</p>
+<div class="connector-arrow"><i class="fas fa-chevron-right"></i></div>
+</div>
+<div class="solution-area">
+<div class="label label-solution"><i class="fas fa-check-circle"></i> Mitigation</div>
+<h3 class="content-title">Structured Error Handling</h3>
+<p class="content-desc">Implemented <span class="code-pill">try-catch</span> blocks in controllers and a centralized global error handler middleware.</p>
+</div>
+</div>
+<!-- Challenge 2: Backend Flow -->
+<div class="challenge-row theme-flow">
+<div class="row-icon-area">
+<div class="row-icon"><i class="fas fa-network-wired"></i></div>
+</div>
+<div class="problem-area">
+<div class="label label-problem"><i class="fas fa-exclamation-circle"></i> Issue</div>
+<h3 class="content-title">Middleware Chaining</h3>
+<p class="content-desc">Incorrect order of middleware caused request bodies to be undefined (parsing issues) or auth checks to fail.</p>
+<div class="connector-arrow"><i class="fas fa-chevron-right"></i></div>
+</div>
+<div class="solution-area">
+<div class="label label-solution"><i class="fas fa-check-circle"></i> Mitigation</div>
+<h3 class="content-title">Pipeline Visualization</h3>
+<p class="content-desc">Mapped out the request flow and utilized <span class="code-pill">app.use()</span> strictly for parsing before route definitions.</p>
+</div>
+</div>
+<!-- Challenge 3: API Handling -->
+<div class="challenge-row theme-api">
+<div class="row-icon-area">
+<div class="row-icon"><i class="fas fa-exchange-alt"></i></div>
+</div>
+<div class="problem-area">
+<div class="label label-problem"><i class="fas fa-exclamation-circle"></i> Issue</div>
+<h3 class="content-title">CORS &amp; Data Validation</h3>
+<p class="content-desc">Cross-Origin Resource Sharing errors during frontend-backend integration and invalid data crashing the server.</p>
+<div class="connector-arrow"><i class="fas fa-chevron-right"></i></div>
+</div>
+<div class="solution-area">
+<div class="label label-solution"><i class="fas fa-check-circle"></i> Mitigation</div>
+<h3 class="content-title">Configuration &amp; Validation</h3>
+<p class="content-desc">Configured <span class="code-pill">cors</span> package for specific origins and added input validation to sanitise requests.</p>
+</div>
+</div>
+<!-- Challenge 4: Database -->
+<div class="challenge-row theme-db">
+<div class="row-icon-area">
+<div class="row-icon"><i class="fas fa-database"></i></div>
+</div>
+<div class="problem-area">
+<div class="label label-problem"><i class="fas fa-exclamation-circle"></i> Issue</div>
+<h3 class="content-title">Performance &amp; N+1 Queries</h3>
+<p class="content-desc">Fetching related data (tasks per user) inside loops caused excessive database calls and slow response times.</p>
+<div class="connector-arrow"><i class="fas fa-chevron-right"></i></div>
+</div>
+<div class="solution-area">
+<div class="label label-solution"><i class="fas fa-check-circle"></i> Mitigation</div>
+<h3 class="content-title">Optimized Joins</h3>
+<p class="content-desc">Replaced loops with single SQL <span class="code-pill">JOIN</span> queries and used <span class="code-pill">EXPLAIN</span> to verify indexing usage.</p>
+</div>
+</div>
+</div>
+<!-- Bottom Toolkit Bar -->
+<div class="toolkit-bar">
+<div class="text-xs text-gray-400 font-bold uppercase tracking-widest mr-4">General Strategies:</div>
+<div class="flex gap-4">
+<div class="tool-item">
+<i class="fas fa-file-alt tool-icon"></i>
+<span class="tool-text">Console Logs</span>
+</div>
+<div class="tool-item">
+<i class="fas fa-vial tool-icon"></i>
+<span class="tool-text">Unit Tests</span>
+</div>
+<div class="tool-item">
+<i class="fas fa-book tool-icon"></i>
+<span class="tool-text">Documentation</span>
+</div>
+<div class="tool-item">
+<i class="fas fa-users tool-icon"></i>
+<span class="tool-text">Peer Review</span>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

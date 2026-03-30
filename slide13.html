@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Database Concepts</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #4da3ff;
+            background-color: #1a1a2e;
+            box-shadow: 0 0 10px rgba(77, 163, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        .content-row:hover .icon-box {
+            background-color: #0f4c81;
+            box-shadow: 0 0 20px rgba(77, 163, 255, 0.5);
+            transform: scale(1.1);
+        }
+        .content-card {
+            background: rgba(35, 35, 58, 0.6);
+            backdrop-filter: blur(5px);
+            border-left: 4px solid #4da3ff;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .content-row:hover .content-card {
+            background: rgba(35, 35, 58, 0.9);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-[#0f4c81] opacity-5 rounded-bl-full pointer-events-none"></div>
+<div class="absolute bottom-10 right-20 w-32 h-32 border-4 border-[#23233a] rounded-full opacity-20 pointer-events-none"></div>
+<!-- Header Section -->
+<div class="w-full mb-6 border-b border-gray-700 pb-4 flex justify-between items-end">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Core Principles</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Database Concepts</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">13 / 18</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 relative pl-8 pr-12 py-2 flex flex-col justify-between">
+<!-- Connecting Line -->
+<div class="absolute left-[62px] top-10 bottom-10 w-0.5 bg-gray-700 z-0"></div>
+<!-- Item 1: Schema Design -->
+<div class="flex items-center content-row group z-10">
+<div class="w-24 flex-shrink-0 flex justify-center">
+<div class="icon-box text-[#4da3ff] group-hover:text-white">
+<i class="fas fa-project-diagram text-xl"></i>
+</div>
+</div>
+<div class="ml-6 flex-1 content-card p-4 rounded-r-lg">
+<h3 class="text-lg font-bold text-white mb-1 font-['Poppins']">Schema Design</h3>
+<p class="text-gray-300 text-sm">Structuring data via <strong>Primary/Foreign Keys</strong>, selecting optimal data types, and defining column constraints.</p>
+</div>
+</div>
+<!-- Item 2: Normalization -->
+<div class="flex items-center content-row group z-10">
+<div class="w-24 flex-shrink-0 flex justify-center">
+<div class="icon-box text-[#4da3ff] group-hover:text-white">
+<i class="fas fa-table-list text-xl"></i>
+</div>
+</div>
+<div class="ml-6 flex-1 content-card p-4 rounded-r-lg">
+<h3 class="text-lg font-bold text-white mb-1 font-['Poppins']">Normalization</h3>
+<p class="text-gray-300 text-sm">Eliminating redundancy through <strong>1NF, 2NF, 3NF</strong> while balancing read performance trade-offs.</p>
+</div>
+</div>
+<!-- Item 3: Indexing -->
+<div class="flex items-center content-row group z-10">
+<div class="w-24 flex-shrink-0 flex justify-center">
+<div class="icon-box text-[#4da3ff] group-hover:text-white">
+<i class="fas fa-bolt text-xl"></i>
+</div>
+</div>
+<div class="ml-6 flex-1 content-card p-4 rounded-r-lg">
+<h3 class="text-lg font-bold text-white mb-1 font-['Poppins']">Indexing &amp; Performance</h3>
+<p class="text-gray-300 text-sm">Optimizing lookups using <strong>Single vs. Composite</strong> indexes and analyzing <code>EXPLAIN</code> plans.</p>
+</div>
+</div>
+<!-- Item 4: Data Integrity -->
+<div class="flex items-center content-row group z-10">
+<div class="w-24 flex-shrink-0 flex justify-center">
+<div class="icon-box text-[#4da3ff] group-hover:text-white">
+<i class="fas fa-shield-halved text-xl"></i>
+</div>
+</div>
+<div class="ml-6 flex-1 content-card p-4 rounded-r-lg">
+<h3 class="text-lg font-bold text-white mb-1 font-['Poppins']">Data Integrity</h3>
+<p class="text-gray-300 text-sm">Enforcing validity with <strong>NOT NULL, UNIQUE, CHECK</strong> constraints and configuring Cascade actions.</p>
+</div>
+</div>
+<!-- Item 5: Transactions -->
+<div class="flex items-center content-row group z-10">
+<div class="w-24 flex-shrink-0 flex justify-center">
+<div class="icon-box text-[#4da3ff] group-hover:text-white">
+<i class="fas fa-rotate-left text-xl"></i>
+</div>
+</div>
+<div class="ml-6 flex-1 content-card p-4 rounded-r-lg">
+<h3 class="text-lg font-bold text-white mb-1 font-['Poppins']">Transactions (ACID)</h3>
+<p class="text-gray-300 text-sm">Ensuring Atomicity, Consistency, Isolation, and Durability, with reliable <strong>rollback on failure</strong> mechanisms.</p>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

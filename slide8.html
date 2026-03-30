@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Express.js Framework</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Custom List Styling */
+        .tech-list-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 20px;
+            border-left: 2px solid rgba(77, 163, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .tech-list-item:hover {
+            border-left-color: #4da3ff;
+            background-color: rgba(77, 163, 255, 0.05); /* Replaced gradient with solid rgba */
+        }
+        .tech-icon-bullet {
+            position: absolute;
+            left: -12px; /* Center on border */
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #1a1a2e;
+            border: 2px solid #4da3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #4da3ff;
+        }
+
+        .code-snippet {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #a0aec0;
+            background: rgba(0,0,0,0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        
+        /* Right Side Diagram - Middleware Flow */
+        .flow-container {
+            position: relative;
+            width: 450px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .flow-node {
+            background-color: rgba(30, 30, 50, 0.9);
+            border: 1px solid rgba(77, 163, 255, 0.4);
+            border-radius: 8px;
+            padding: 12px 20px;
+            width: 280px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        
+        .flow-node.request {
+            border-color: #10b981; /* Green for Start */
+            color: #10b981;
+            width: auto;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .flow-node.middleware {
+            border-left: 4px solid #4da3ff;
+        }
+        
+        .flow-node.route {
+            border-left: 4px solid #f59e0b; /* Amber for Route logic */
+        }
+        
+        .flow-node.response {
+            border-color: #10b981;
+            color: #10b981;
+            width: auto;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            width: 2px;
+            height: 25px;
+            background-color: rgba(77, 163, 255, 0.4);
+            position: relative;
+        }
+        
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -3px;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid rgba(77, 163, 255, 0.4);
+        }
+
+        .error-branch {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            width: 60px;
+            height: 2px;
+            background-color: #ef4444; /* Red for Error */
+        }
+        
+        .error-node {
+            position: absolute;
+            right: -160px;
+            top: 40%;
+            width: 140px;
+            background-color: rgba(60, 20, 20, 0.9);
+            border: 1px solid #ef4444;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #fca5a5;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border border-gray-800 opacity-20 pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-1/2 h-full bg-[#0f4c81] opacity-5 transform skew-x-12 pointer-events-none"></div>
+<!-- Header Section -->
+<div class="w-full mb-6 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Backend Architecture</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Express.js Framework</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">08 / 18</div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex-1 grid grid-cols-2 gap-12 items-center">
+<!-- Left Column: Content -->
+<div class="pl-4">
+<h2 class="text-2xl font-bold font-['Poppins'] text-white mb-6">Core Components</h2>
+<div class="space-y-1">
+<!-- Routing Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-route"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Routing &amp; Structure</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Defined RESTful endpoints using <code>app.get()</code>, <code>app.post()</code>, and modularized logic with <strong>Express Router</strong>. Adopted <strong>MVC-ish structure</strong> (Routes, Controllers, Services) for scalability.
+                    </p>
+</div>
+<!-- Middleware Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-layer-group"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Middleware Chain</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Implemented functions that execute during the request cycle. Used built-in <code>express.json()</code> for parsing body data and custom middleware for <strong>logging</strong> and <strong>authentication</strong>.
+                    </p>
+</div>
+<!-- Error Handling Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-exclamation-triangle"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Error Handling</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Created centralized error handling middleware. Using <code>next(err)</code> to bubble up exceptions and return consistent JSON error responses with proper HTTP status codes.
+                    </p>
+</div>
+<!-- Security Item -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-shield-halved"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Security Essentials</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Hardened the application using <strong>Helmet</strong> for headers, <strong>CORS</strong> for cross-origin resource sharing, and implemented basic <strong>Rate Limiting</strong> to prevent abuse.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual Diagram -->
+<div class="flex justify-center items-center relative h-full">
+<!-- Diagram Background Glow -->
+<div class="absolute w-64 h-64 bg-[#4da3ff] rounded-full filter blur-[80px] opacity-10"></div>
+<!-- Title for Diagram -->
+<div class="absolute top-0 left-0 w-full text-center">
+<p class="text-gray-400 text-xs font-['Fira Code'] tracking-wider">REQUEST-RESPONSE CYCLE</p>
+</div>
+<div class="flow-container">
+<!-- Step 1: Request -->
+<div class="flow-node request">
+<i class="fas fa-paper-plane mr-2"></i> Client Request
+                </div>
+<div class="flow-arrow"></div>
+<!-- Step 2: Global Middleware -->
+<div class="flow-node middleware">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold text-white">Global Middleware</span>
+<i class="fas fa-cog text-gray-500 text-xs"></i>
+</div>
+<div class="code-snippet mt-1">express.json(), cors()</div>
+</div>
+<div class="flow-arrow"></div>
+<!-- Step 3: Auth Middleware -->
+<div class="flow-node middleware">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold text-white">Auth Middleware</span>
+<i class="fas fa-lock text-gray-500 text-xs"></i>
+</div>
+<div class="text-xs text-gray-400 mt-1">Verify JWT &amp; set req.user</div>
+<!-- Error Branch Visual -->
+<div class="error-branch"></div>
+<div class="error-node">
+<div class="flex items-center gap-2 mb-1">
+<i class="fas fa-times-circle text-red-500"></i>
+<span class="font-bold text-red-400">Error Handler</span>
+</div>
+<span class="text-[10px]">res.status(401).json()</span>
+</div>
+</div>
+<div class="flow-arrow"></div>
+<!-- Step 4: Route Handler -->
+<div class="flow-node route">
+<div class="flex justify-between items-center">
+<span class="text-sm font-bold text-white">Route Controller</span>
+<i class="fas fa-code-branch text-gray-500 text-xs"></i>
+</div>
+<div class="text-xs text-gray-400 mt-1">Business Logic &amp; DB Calls</div>
+</div>
+<div class="flow-arrow"></div>
+<!-- Step 5: Response -->
+<div class="flow-node response">
+<i class="fas fa-check-circle mr-2"></i> Server Response
+                </div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

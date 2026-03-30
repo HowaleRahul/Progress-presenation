@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>File-Based User Management</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Custom List Styling */
+        .tech-list-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 20px;
+            border-left: 2px solid rgba(77, 163, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .tech-list-item:hover {
+            border-left-color: #4da3ff;
+            background-color: rgba(77, 163, 255, 0.05); /* Replaced gradient with solid color opacity */
+        }
+        .tech-icon-bullet {
+            position: absolute;
+            left: -12px; /* Center on border */
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #1a1a2e;
+            border: 2px solid #4da3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #4da3ff;
+        }
+        
+        /* Right Side Diagram - Architecture Flow */
+        .architecture-container {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .arch-card {
+            width: 340px;
+            background: rgba(35, 35, 58, 0.95);
+            border: 1px solid rgba(77, 163, 255, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .arrow-down {
+            color: #4da3ff;
+            font-size: 20px;
+            height: 20px;
+            opacity: 0.6;
+        }
+
+        .code-snippet {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            color: #a0aec0;
+            background: rgba(0,0,0,0.4);
+            padding: 10px;
+            border-radius: 6px;
+            width: 100%;
+            margin-top: 8px;
+            white-space: pre;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .tag-blue { background: rgba(77, 163, 255, 0.2); color: #4da3ff; }
+        .tag-orange { background: rgba(255, 165, 0, 0.2); color: orange; }
+
+        /* File decoration */
+        .file-decor {
+            position: absolute;
+            right: -20px;
+            top: 40%;
+            font-size: 100px;
+            color: rgba(77, 163, 255, 0.03);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container p-12">
+<!-- Background Decorations -->
+<div class="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border border-gray-800 opacity-20 pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-1/2 h-full bg-[#0f4c81] opacity-5 transform skew-x-12 pointer-events-none"></div>
+<!-- Header Section -->
+<div class="w-full mb-6 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Data Persistence</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">File-Based User Management</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">11 / 18</div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex-1 grid grid-cols-2 gap-10 items-center">
+<!-- Left Column: Content -->
+<div class="pl-4">
+<div class="space-y-1">
+<!-- Item 1: Storage Structure -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-file-code"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">JSON Storage Structure</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Data persists in <code>users.json</code>. Each user object contains a unique <strong>UUID</strong>, email, <strong>bcrypt</strong> password hash, and role (admin/user). This serves as a lightweight NoSQL-style document store.
+                    </p>
+</div>
+<!-- Item 2: Operations -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-cogs"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Core Operations (CRUD)</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Implemented service layer functions: <code>findByEmail()</code> for auth, <code>addUser()</code> for registration, and utility functions to parse/stringify JSON data dynamically.
+                    </p>
+</div>
+<!-- Item 3: Concurrency -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-lock"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Concurrency &amp; Integrity</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        Addressed file locking issues using <strong>Atomic Writes</strong>: writing to a temporary file first, then renaming it to ensure data isn't corrupted during simultaneous requests.
+                    </p>
+</div>
+<!-- Item 4: Migration -->
+<div class="tech-list-item pl-8">
+<div class="tech-icon-bullet"><i class="fas fa-database"></i></div>
+<h3 class="text-lg font-semibold text-white mb-1">Scalability &amp; Migration</h3>
+<p class="text-gray-400 text-sm leading-relaxed">
+                        While excellent for rapid prototyping (Zero config), it lacks ACID compliance. <strong>Future Plan:</strong> Migrate to MySQL using seeding scripts to transfer existing JSON data to relational tables.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Right Column: Visual Diagram -->
+<div class="flex justify-center items-center relative h-full">
+<!-- Diagram Background Glow -->
+<div class="absolute w-64 h-64 bg-[#4da3ff] rounded-full filter blur-[80px] opacity-10"></div>
+<i class="fas fa-file-alt file-decor"></i>
+<div class="architecture-container">
+<!-- Card 1: App Logic -->
+<div class="arch-card">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<i class="fas fa-server text-[#4da3ff]"></i>
+<h4 class="font-bold text-white text-sm">Node.js Server</h4>
+</div>
+<span class="tag tag-blue">Memory</span>
+</div>
+<p class="text-xs text-gray-400 mb-2">User Controller handles request</p>
+<div class="code-snippet">const users = JSON.parse(
+  fs.readFileSync('./users.json')
+);</div>
+</div>
+<!-- Arrow -->
+<div class="arrow-down">
+<i class="fas fa-arrow-down"></i>
+</div>
+<!-- Card 2: File System -->
+<div class="arch-card">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<i class="fas fa-hdd text-orange-400"></i>
+<h4 class="font-bold text-white text-sm">File System (fs)</h4>
+</div>
+<span class="tag tag-orange">Disk I/O</span>
+</div>
+<p class="text-xs text-gray-400 mb-1">Atomic Write Strategy</p>
+<div class="w-full bg-gray-800 h-1 rounded overflow-hidden mb-1">
+<div class="bg-green-400 h-full w-3/4"></div>
+</div>
+<p class="text-[10px] text-gray-500 text-right">Write Temp Ã¢â€ â€™ Rename</p>
+</div>
+<!-- Arrow -->
+<div class="arrow-down">
+<i class="fas fa-arrow-down"></i>
+</div>
+<!-- Card 3: The File -->
+<div class="arch-card" style="border-color: rgba(77, 163, 255, 0.6);">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-2">
+<i class="fas fa-file-code text-yellow-400"></i>
+<h4 class="font-bold text-white text-sm">users.json</h4>
+</div>
+<span class="tag tag-blue">Storage</span>
+</div>
+<div class="code-snippet text-yellow-100">[
+  {
+    "id": "u_8a2b",
+    "email": "intern@dev.com",
+    "role": "admin",
+    "hash": "$2b$10$..."
+  }
+]</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

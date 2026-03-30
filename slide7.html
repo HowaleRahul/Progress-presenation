@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API Testing using Postman</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Inter:wght@300;400;500&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Process Step Card */
+        .step-card {
+            background: rgba(35, 35, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(77, 163, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            width: 260px;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            border-color: #4da3ff;
+            background: rgba(35, 35, 58, 0.95);
+            box-shadow: 0 10px 30px -10px rgba(77, 163, 255, 0.3);
+        }
+
+        /* Number Badge */
+        .step-number {
+            position: absolute;
+            top: -15px;
+            background-color: #1a1a2e;
+            border: 2px solid #4da3ff;
+            color: #4da3ff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            background: rgba(77, 163, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: #4da3ff;
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .icon-wrapper {
+            background: #4da3ff;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        /* Connecting Line */
+        .connector-line {
+            position: absolute;
+            top: 45%;
+            left: 100px;
+            right: 100px;
+            height: 2px;
+            background-color: #2d3748;
+            z-index: 0;
+            transform: translateY(20px); /* Adjust based on card height */
+        }
+
+        .code-pill {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #a0aec0;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .method-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 4px;
+        }
+        .tag-get { background: rgba(77, 163, 255, 0.2); color: #4da3ff; }
+        .tag-post { background: rgba(72, 187, 120, 0.2); color: #48bb78; }
+        .tag-del { background: rgba(245, 101, 101, 0.2); color: #f56565; }
+
+        /* Bottom Status Bar */
+        .status-bar {
+            background: rgba(15, 76, 129, 0.2);
+            border-top: 1px solid rgba(77, 163, 255, 0.2);
+            margin-top: auto;
+            padding: 16px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="absolute top-0 left-0 w-full h-2 bg-[#4da3ff]"></div>
+<div class="absolute top-20 right-20 w-64 h-64 bg-[#0f4c81] rounded-full filter blur-[100px] opacity-20"></div>
+<div class="absolute bottom-20 left-20 w-48 h-48 bg-[#4da3ff] rounded-full filter blur-[80px] opacity-10"></div>
+<!-- Header -->
+<div class="px-12 pt-12 pb-6 border-b border-gray-800 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Workflow &amp; Quality Assurance</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">API Testing using Postman</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">07 / 18</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col justify-center relative px-12">
+<!-- Connecting Line Background -->
+<div class="connector-line"></div>
+<!-- Arrow Heads on Line -->
+<div class="absolute top-[45%] left-[380px] transform translate-y-[11px] text-gray-600 text-xl"><i class="fas fa-chevron-right"></i></div>
+<div class="absolute top-[45%] right-[380px] transform translate-y-[11px] text-gray-600 text-xl"><i class="fas fa-chevron-right"></i></div>
+<div class="absolute top-[45%] right-[100px] transform translate-y-[11px] text-gray-600 text-xl"><i class="fas fa-chevron-right"></i></div>
+<div class="flex justify-between items-center gap-6 relative z-10 px-4">
+<!-- Step 1: Request Setup -->
+<div class="step-card">
+<div class="step-number">1</div>
+<div class="icon-wrapper">
+<i class="fas fa-paper-plane"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-3 font-['Poppins']">Request Setup</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed">
+                        Configuring endpoints and selecting appropriate HTTP methods for CRUD operations.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="flex flex-wrap gap-2 mb-2">
+<span class="method-tag tag-get">GET</span>
+<span class="method-tag tag-post">POST</span>
+<span class="method-tag tag-del">DEL</span>
+</div>
+<div class="code-pill">Body: JSON (raw)</div>
+<div class="code-pill">Headers: Content-Type</div>
+</div>
+</div>
+<!-- Step 2: Environment -->
+<div class="step-card">
+<div class="step-number">2</div>
+<div class="icon-wrapper">
+<i class="fas fa-sliders-h"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-3 font-['Poppins']">Environment</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed">
+                        Managing variables for different stages (Dev/Prod) and handling authentication tokens.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="mb-1"><span class="text-[#4da3ff] text-xs font-bold">Variables:</span></div>
+<div class="code-pill">{{baseUrl}}</div>
+<div class="code-pill">{{authToken}}</div>
+<div class="mt-2 text-xs text-gray-500">
+<i class="fas fa-lock mr-1"></i> Auth: Bearer Token
+                        </div>
+</div>
+</div>
+<!-- Step 3: Response & Debug -->
+<div class="step-card">
+<div class="step-number">3</div>
+<div class="icon-wrapper">
+<i class="fas fa-bug"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-3 font-['Poppins']">Debug &amp; Analyze</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed">
+                        Analyzing status codes, response time, and payload structure using the console.
+                    </p>
+<div class="w-full text-left mt-auto">
+<div class="flex justify-between text-xs text-gray-400 mb-1">
+<span>Status:</span>
+<span class="text-green-400 font-mono">200 OK</span>
+</div>
+<div class="flex justify-between text-xs text-gray-400 mb-1">
+<span>Time:</span>
+<span class="text-yellow-400 font-mono">124ms</span>
+</div>
+<div class="code-pill w-full mt-1 text-center">Console Logs</div>
+</div>
+</div>
+<!-- Step 4: Automation -->
+<div class="step-card">
+<div class="step-number">4</div>
+<div class="icon-wrapper">
+<i class="fas fa-vial"></i>
+</div>
+<h3 class="text-lg font-bold text-white mb-3 font-['Poppins']">Test Automation</h3>
+<p class="text-gray-400 text-xs mb-4 leading-relaxed">
+                        Writing scripts to validate API behavior and running collections automatically.
+                    </p>
+<div class="w-full text-left mt-auto bg-gray-900 bg-opacity-50 p-2 rounded border border-gray-700">
+<div class="text-[10px] font-['Fira_Code'] text-gray-400">
+<span class="text-purple-400">pm</span>.test(<span class="text-green-400">"Success"</span>, <span class="text-blue-400">function</span>(){<br/>
+                            Ã‚Â Ã‚Â <span class="text-purple-400">pm</span>.response.to.have.<br/>
+                            Ã‚Â Ã‚Â status(<span class="text-orange-400">200</span>);<br/>
+                            });
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Status Bar -->
+<div class="status-bar">
+<div class="flex items-center gap-2">
+<i class="fas fa-info-circle text-[#4da3ff]"></i>
+<p class="text-sm font-semibold text-white font-['Poppins']">Common Status Codes</p>
+</div>
+<div class="flex gap-6 text-xs font-['Fira_Code']">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-gray-300"><strong class="text-white">200</strong> OK</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-gray-300"><strong class="text-white">201</strong> Created</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+<span class="text-gray-300"><strong class="text-white">400</strong> Bad Request</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<span class="text-gray-300"><strong class="text-white">404</strong> Not Found</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-red-700"></div>
+<span class="text-gray-300"><strong class="text-white">500</strong> Server Error</span>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>

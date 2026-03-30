@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skills Acquired</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #1a1a2e;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Decorative Background */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .orb-blue {
+            width: 400px;
+            height: 400px;
+            background-color: #0f4c81;
+            top: -100px;
+            right: -100px;
+        }
+
+        .orb-teal {
+            width: 300px;
+            height: 300px;
+            background-color: #4da3ff;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        /* Skill Card Styling */
+        .skill-card {
+            background: rgba(35, 35, 58, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            background: rgba(35, 35, 58, 0.9);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Category Header */
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .category-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        /* Skill Badges */
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Theme Colors */
+        /* Frontend - Blue */
+        .theme-fe .category-icon { background: rgba(77, 163, 255, 0.15); color: #4da3ff; }
+        .theme-fe .skill-badge { background: rgba(77, 163, 255, 0.1); color: #90cdf4; border-color: rgba(77, 163, 255, 0.2); }
+        .theme-fe:hover { border-color: #4da3ff; }
+
+        /* Backend - Green */
+        .theme-be .category-icon { background: rgba(72, 187, 120, 0.15); color: #48bb78; }
+        .theme-be .skill-badge { background: rgba(72, 187, 120, 0.1); color: #9ae6b4; border-color: rgba(72, 187, 120, 0.2); }
+        .theme-be:hover { border-color: #48bb78; }
+
+        /* Database - Orange/Yellow */
+        .theme-db .category-icon { background: rgba(236, 201, 75, 0.15); color: #ecc94b; }
+        .theme-db .skill-badge { background: rgba(236, 201, 75, 0.1); color: #fbd38d; border-color: rgba(236, 201, 75, 0.2); }
+        .theme-db:hover { border-color: #ecc94b; }
+
+        /* Tools - Purple */
+        .theme-tools .category-icon { background: rgba(159, 122, 234, 0.15); color: #9f7aea; }
+        .theme-tools .skill-badge { background: rgba(159, 122, 234, 0.1); color: #d6bcfa; border-color: rgba(159, 122, 234, 0.2); }
+        .theme-tools:hover { border-color: #9f7aea; }
+
+        /* Soft Skills - Pink */
+        .theme-soft .category-icon { background: rgba(237, 100, 166, 0.15); color: #ed64a6; }
+        .theme-soft .skill-badge { background: rgba(237, 100, 166, 0.1); color: #fbb6ce; border-color: rgba(237, 100, 166, 0.2); }
+        .theme-soft:hover { border-color: #ed64a6; }
+
+        .fira { font-family: 'Fira Code', monospace; font-size: 12px; }
+        
+        /* Grid Layout */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto 1fr;
+            gap: 24px;
+            padding: 0 48px 48px 48px;
+            height: 100%;
+        }
+
+        .col-span-1 { grid-column: span 1; }
+        .col-span-2 { grid-column: span 2; }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Elements -->
+<div class="bg-orb orb-blue"></div>
+<div class="bg-orb orb-teal"></div>
+<!-- Header -->
+<div class="w-full px-12 pt-10 mb-6 border-b border-gray-700 pb-4 flex justify-between items-end relative z-20">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<div class="h-1 w-8 bg-[#4da3ff]"></div>
+<p class="text-[#4da3ff] font-bold tracking-widest uppercase text-xs font-['Poppins']">Competency Matrix</p>
+</div>
+<h1 class="text-4xl font-bold font-['Poppins'] text-white">Skills Acquired</h1>
+</div>
+<div class="text-gray-500 text-sm font-['Fira Code']">14 / 18</div>
+</div>
+<!-- Main Content Matrix -->
+<div class="flex-1 matrix-grid z-10">
+<!-- Row 1: Core Tech Stack -->
+<!-- Frontend -->
+<div class="skill-card theme-fe">
+<div class="card-header">
+<div class="category-icon"><i class="fas fa-code"></i></div>
+<div class="category-title">Frontend</div>
+</div>
+<div class="badge-container">
+<div class="skill-badge"><i class="fab fa-html5"></i> HTML5 Semantic</div>
+<div class="skill-badge"><i class="fab fa-css3-alt"></i> CSS3</div>
+<div class="skill-badge"><i class="fab fa-js"></i> JavaScript ES6+</div>
+<div class="skill-badge fira">DOM Manipulation</div>
+<div class="skill-badge">Flexbox &amp; Grid</div>
+<div class="skill-badge">Responsive Design</div>
+<div class="skill-badge">Fetch API</div>
+</div>
+</div>
+<!-- Backend -->
+<div class="skill-card theme-be">
+<div class="card-header">
+<div class="category-icon"><i class="fas fa-server"></i></div>
+<div class="category-title">Backend</div>
+</div>
+<div class="badge-container">
+<div class="skill-badge"><i class="fab fa-node-js"></i> Node.js</div>
+<div class="skill-badge"><i class="fas fa-microchip"></i> Express.js</div>
+<div class="skill-badge fira">RESTful APIs</div>
+<div class="skill-badge"><i class="fas fa-key"></i> JWT Auth</div>
+<div class="skill-badge">Middleware</div>
+<div class="skill-badge">Async/Await</div>
+<div class="skill-badge">Error Handling</div>
+</div>
+</div>
+<!-- Database -->
+<div class="skill-card theme-db">
+<div class="card-header">
+<div class="category-icon"><i class="fas fa-database"></i></div>
+<div class="category-title">Database</div>
+</div>
+<div class="badge-container">
+<div class="skill-badge"><i class="fas fa-table"></i> MySQL</div>
+<div class="skill-badge fira">CRUD Operations</div>
+<div class="skill-badge">Complex Joins</div>
+<div class="skill-badge">Normalization</div>
+<div class="skill-badge">Schema Design</div>
+<div class="skill-badge">Foreign Keys</div>
+<div class="skill-badge">SQL Workbench</div>
+</div>
+</div>
+<!-- Row 2: Supporting Skills -->
+<!-- Tools & Environment (Spans 2 columns) -->
+<div class="skill-card theme-tools col-span-2">
+<div class="card-header">
+<div class="category-icon"><i class="fas fa-tools"></i></div>
+<div class="category-title">Tools &amp; Environment</div>
+</div>
+<div class="badge-container">
+<div class="skill-badge"><i class="fab fa-git-alt"></i> Git Version Control</div>
+<div class="skill-badge"><i class="fab fa-github"></i> GitHub</div>
+<div class="skill-badge"><i class="fas fa-code-branch"></i> VS Code</div>
+<div class="skill-badge"><i class="fas fa-rocket"></i> Postman</div>
+<div class="skill-badge"><i class="fab fa-npm"></i> NPM / Yarn</div>
+<div class="skill-badge"><i class="fab fa-chrome"></i> Chrome DevTools</div>
+<div class="skill-badge">Prettier / ESLint</div>
+<div class="skill-badge"><i class="fas fa-terminal"></i> Command Line</div>
+</div>
+</div>
+<!-- Soft Skills -->
+<div class="skill-card theme-soft">
+<div class="card-header">
+<div class="category-icon"><i class="fas fa-users"></i></div>
+<div class="category-title">Soft Skills</div>
+</div>
+<div class="badge-container">
+<div class="skill-badge"><i class="fas fa-bug"></i> Debugging</div>
+<div class="skill-badge"><i class="fas fa-brain"></i> Problem Solving</div>
+<div class="skill-badge"><i class="fas fa-comments"></i> Communication</div>
+<div class="skill-badge"><i class="fas fa-clock"></i> Time Management</div>
+<div class="skill-badge"><i class="fas fa-search"></i> Research</div>
+</div>
+</div>
+</div>
+</div>
+    <script src="slide-navigation.js"></script>
+</body>
+</html>
