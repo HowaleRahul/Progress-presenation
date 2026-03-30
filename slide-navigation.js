@@ -10,7 +10,7 @@
     var slideContainer = document.querySelector(".slide-container");
 
     if (window.top === window.self) {
-        window.location.replace("presentation.html?slide=" + currentSlide);
+        window.location.replace("index.html?slide=" + currentSlide);
         return;
     }
 
